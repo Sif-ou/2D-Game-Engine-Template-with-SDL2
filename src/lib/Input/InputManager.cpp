@@ -23,6 +23,7 @@ void InputManager::Update()
                     m_mouseX = event.motion.x;
                     m_mouseY = event.motion.y;
                     break;
+
             }
         }
 

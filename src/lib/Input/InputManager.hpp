@@ -1,9 +1,9 @@
 #pragma once
-#include "KeyLoader/KeyLoader.hpp"
 #include <unordered_map>
 #include <string>
 #include <functional>
 #include <array>
+#include "KeyLoader/KeyLoader.hpp"
 
 
 class InputManager 
@@ -22,6 +22,8 @@ private:
     int m_mouseX = 0;
     int m_mouseY = 0;
 
+    bool test = false ;
+
 public:
 
     InputManager() ;
@@ -30,9 +32,15 @@ public:
 
 
     
-    inline bool isActionDown(Action action) const ;
+    bool isActionDown(Action action) const ;
     void bindAction(Action action, SDL_Scancode scancode) ;
 
+    /*----------*/
+    bool Test() { 
+        
+        return test ;
+    
+    }
 
 
     int getMouseX() const ; 

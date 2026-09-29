@@ -1,8 +1,4 @@
-#pragma once
 #include <iostream>
-#include "SDL.h"
-#include <memory>
-
 
 
 constexpr int KEYS_NUM = 2 ;

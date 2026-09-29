@@ -1,25 +1,27 @@
-# Build output & executables
+# Build outputs, object files, and dependency tracks
 *.exe
 *.o
+*.d
 *.a
 *.so
 bin/
 obj/
 
-# IDE / Environment settings
+# IDE & Environment settings
 .vscode/
 .vs/
 .idea/
 
-# OS generated files
+# System files
 .DS_Store
 Thumbs.db
 
-# 1. Ignore ALL txt and json files by default FIRST
+# 1. Ignore text and JSON logs/temp files by default
 *.txt
 *.json
 
-# 2. Add Exceptions LAST (un-ignore these specific paths)
+# 2. Whitelist game asset subfolders and content
 !assets/
-!assets/*.json
+!assets/**
 !temp_assets/
+!temp_assets/**

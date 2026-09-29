@@ -1,5 +1,5 @@
 #pragma once 
-#include "../struct.hpp"
+#include "../../Header.hpp"
 
 
 class Window

@@ -1,8 +1,8 @@
 #pragma once
-#include "../../struct.hpp"
+#include "../../../Header.hpp"
 #include <filesystem>
 #include <fstream>
-#include "../../external/nlohmann/json.hpp"
+#include "../../../external/nlohmann/json.hpp"
 
 
 using json = nlohmann::json ;
@@ -14,7 +14,8 @@ enum class Action
 } ;
 
 
-
+constexpr int KEYS_NUM = 1 ;
+const std::string KEY_BINDS_FILE = "../../../../test.json";
 
 class KeyLoader
 {
