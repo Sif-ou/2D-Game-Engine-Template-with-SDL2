@@ -5,7 +5,10 @@
 
 namespace Graphics {
 
-
+/*
+TODO blend mode for transparency 
+TODO define rules & documentation 
+*/
 struct RenderCommand 
 {
 
@@ -14,6 +17,8 @@ struct RenderCommand
     SDL_Rect dstRect { 0 , 0 , 0 , 0 } ;
     int zIndex = 0 ;
     double angle = 0.0 ; 
+    bool srcNull = false ;
+    bool dstNull = false ;
 
 };
 

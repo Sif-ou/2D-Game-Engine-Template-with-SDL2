@@ -64,30 +64,30 @@ class Animation
 
      /* getters & setters */
      /**/
-     float getAnimationTimer() const ;
+     [[nodiscard]] float getAnimationTimer() const ;
      void setAnimationTimer ( const float animationTimer ) ;
 
      /**/
-     int getFrameCount() const ;
+     [[nodiscard]] int getFrameCount() const ;
      void setFrameCount( const int count ) ;
 
      /**/
-     float getDuartion () const ;
+     [[nodiscard]] float getDuartion () const ;
      void setDuration ( const float duration ) ;
 
      /**/
-     SDL_Texture * getTexture() const ;
+     [[nodiscard]] const SDL_Texture * getTexture() const ;
 
 
      /**/
-     SDL_Rect getDstRect() const ;
+     [[nodiscard]] SDL_Rect getDstRect() const ;
      void setDstRect( const SDL_Rect dstRect ) ;
      
 
      /**/
      void setFrameAt ( const SDL_Rect srcRect , const int index ) ;
      void setFrames ( const std::vector<SDL_Rect> frames ) ;
-     SDL_Rect getFrameAt ( const int index ) const ;
+     [[nodiscard]] SDL_Rect getFrameAt ( const int index ) const ;
 
 
      

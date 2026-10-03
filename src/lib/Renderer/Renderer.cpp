@@ -69,16 +69,63 @@ void Renderer::Destroy()
 }
 
 
-/**/
+/**
+ * # setRenderCommand Overload 
+ * 
+ */
 void Renderer::setRenderCommand( SDL_Texture * texture , 
                                  const SDL_Rect srcRect , const SDL_Rect dstRect ,
-                                 int zIndex , double angle ) 
+                                 const int zIndex , const double angle )  
 {
 
     if ( !texture )
      return ;
 
      m_queue.emplace_back( RenderCommand{ texture , srcRect , dstRect , zIndex , angle } ) ;
+
+}
+
+/**
+ * # setRenderCommand Overload 
+ * no dstRect
+ */
+void Renderer::setRenderCommand( SDL_Texture * texture , 
+                                 const SDL_Rect dstRect ,
+                                 const int zIndex , const double angle )  
+{
+
+    if ( !texture )
+     return ;
+
+     m_queue.emplace_back( RenderCommand{ texture , {0,0,0,0} , dstRect , zIndex , angle , true } ) ;
+
+}
+
+/**
+ * # setRenderCommand Overload 
+ * no dstRect
+ */
+void Renderer::setRenderCommand ( SDL_Texture * texture ,   
+                        const SDL_Rect srcRect ,
+                        const int zIndex , const double angle )  
+{
+
+    if ( !texture )
+     return ;
+
+     m_queue.emplace_back( RenderCommand{ texture , srcRect , {0,0,0,0} , zIndex , angle , false , true } ) ;
+
+}
+
+
+void Renderer::setRenderCommand ( SDL_Texture * texture ,   
+                                const int zIndex , const double angle )  
+{
+
+    if ( !texture )
+     return ;
+
+     m_queue.emplace_back( RenderCommand{ texture , {0,0,0,0} , {0,0,0,0} , zIndex , angle , true , true } ) ;
 
 }
 
@@ -89,14 +136,22 @@ void Renderer::RenderQueue()
 
     std::stable_sort(m_queue.begin(), m_queue.end(), [](const RenderCommand& a, const RenderCommand& b) {
         if (a.zIndex != b.zIndex) {
-            return a.zIndex < b.zIndex;
+            return a.zIndex < b.zIndex ;
         }
-        return a.texture < b.texture; 
+        return a.texture < b.texture ; 
     });
 
 
-    for (const auto& cmd : m_queue) {
-        SDL_RenderCopyEx( m_renderer, cmd.texture, &cmd.srcRect, &cmd.dstRect, cmd.angle , nullptr , SDL_FLIP_NONE );
+    for (const auto& cmd : m_queue) 
+    {
+
+       const SDL_Rect* pSrc = cmd.srcNull ? nullptr : &cmd.srcRect;
+       const SDL_Rect* pDst = cmd.dstNull ? nullptr : &cmd.dstRect;
+       
+       SDL_RenderCopyEx( m_renderer, cmd.texture, 
+                         &cmd.srcRect, &cmd.dstRect, 
+                         cmd.angle , nullptr , SDL_FLIP_NONE );
+    
     }
 
 

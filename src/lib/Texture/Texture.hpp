@@ -33,15 +33,15 @@ class Texture
     SDL_Rect m_srcRect{0, 0, 0, 0}; 
     SDL_Rect m_dstRect{0, 0, 0, 0};
 
-    bool m_srcNull ; // allow srcRect to be nullptr ;
-    bool m_dstNull ; // allow dstRect to be nullptr ; 
+    bool m_srcNull = false ; /* allow to be null or not */
+    bool m_dstNull = false ; /* false = no null , true = null */
 
     public : 
 
     Texture() = default;
-    Texture(SDL_Texture* texture, const SDL_Rect& srcRect, const SDL_Rect& dstRect) ;
+    Texture(SDL_Texture* texture, const SDL_Rect srcRect, const SDL_Rect dstRect) ;
     Texture(SDL_Texture* texture , const bool src , const bool dst ) ;
-
+    
     ~Texture();
 
     // Disable copying to avoid double-freeing the texture pointer
@@ -56,15 +56,15 @@ class Texture
     public : 
 
     /* getters for srcRect & dstRect */
-    const SDL_Rect* getSrcRect () const ; 
-    const SDL_Rect* getDstRect () const ;
+    [[nodiscard]] const SDL_Rect* getSrcRect () const ; 
+    [[nodiscard]] const SDL_Rect* getDstRect () const ;
 
     /* setters for srcRect & dstRect */
     void setSrcRect( const SDL_Rect srcRect ) ;
     void setDstRect ( const SDL_Rect dstRect ) ;
 
     /**/
-    const SDL_Texture* getTexture() const ;
+    [[nodiscard]] const SDL_Texture* getTexture() const ;
 
 };
 
