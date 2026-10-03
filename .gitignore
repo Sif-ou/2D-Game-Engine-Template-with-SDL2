@@ -20,6 +20,10 @@ Thumbs.db
 *.txt
 *.json
 
+# Never upload these
+dev pic/
+temp_assets/
+
 # 2. Whitelist game asset subfolders and content
 !assets/
 !assets/**
