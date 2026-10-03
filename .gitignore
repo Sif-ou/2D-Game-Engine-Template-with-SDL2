@@ -25,5 +25,11 @@ Thumbs.db
 !assets/**
 !temp_assets/
 !temp_assets/**
-!dev pic/
-!dev pic/**
+
+/dev pic/
+/dev pics/**
+
+/assets/
+/assets/**
+/temp_assets/
+/temp_assets/**
