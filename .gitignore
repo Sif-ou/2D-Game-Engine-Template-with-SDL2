@@ -23,6 +23,8 @@ Thumbs.db
 # Never upload these
 dev pic/
 temp_assets/
+assets/
+media/
 
 # 2. Whitelist game asset subfolders and content
 !assets/

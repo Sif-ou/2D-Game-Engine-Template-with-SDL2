@@ -3,7 +3,7 @@
 using namespace Textures ;
 
 
-Texture::Texture(SDL_Texture* texture, const SDL_Rect& srcRect, const SDL_Rect& dstRect) 
+Texture::Texture(SDL_Texture* texture, const SDL_Rect srcRect, const SDL_Rect dstRect) 
                    : m_texture(texture), m_srcRect(srcRect), m_dstRect(dstRect) 
 {
   /* won't let getters return nullptr for both rects */

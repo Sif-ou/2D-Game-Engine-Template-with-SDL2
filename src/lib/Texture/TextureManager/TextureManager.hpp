@@ -2,6 +2,14 @@
 #include "../../../EntryPoint.hpp"
 #include "../Animation/Animation.hpp"
 
+/**
+ * 
+ * TODO
+ * log output
+ * 
+ */
+
+
 namespace Textures
 {
 

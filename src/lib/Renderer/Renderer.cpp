@@ -6,8 +6,13 @@ using namespace Graphics ;
 Renderer::Renderer(SDL_Window* window)
 {
     m_renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+    
+    
+    LOG_INFO_DMODE ( LOG::LOG_DEFAULT_TYPE , "RENDERER" , "renderer created successfully") ;
+
     if (!m_renderer) {
-        std::cerr << "Failed to create SDL_Renderer: " << SDL_GetError() << std::endl;
+        LOG_FATAL ( LOG::LOG_DEFAULT_TYPE , "RENDERER" , SDL_GetError() ) ;
+        //std::cerr << "Failed to create SDL_Renderer: " << SDL_GetError() << std::endl;
     }
 }
 
@@ -24,6 +29,9 @@ Renderer::~Renderer()
  */
 Renderer::Renderer(Renderer&& other) noexcept 
 {
+    
+    LOG_WARN_DMODE( LOG::LOG_DEFAULT_TYPE , "RENDERER" , "Move Constructor is called" ) ;
+
     Destroy();
     m_renderer = other.m_renderer;
     other.m_renderer = nullptr;
@@ -34,6 +42,9 @@ Renderer::Renderer(Renderer&& other) noexcept
  */
 Renderer& Renderer::operator=(Renderer&& other) noexcept
 {
+    
+    LOG_WARN_DMODE( LOG::LOG_DEFAULT_TYPE , "RENDERER" , "Move Assigment is called" ) ;
+    
     if (this != &other) {
         Destroy();
         m_renderer = other.m_renderer;
@@ -65,13 +76,15 @@ void Renderer::Destroy()
     if (m_renderer) {
         SDL_DestroyRenderer(m_renderer);
         m_renderer = nullptr; 
+        
+        LOG_DEBUG( LOG::LOG_DEFAULT_TYPE , "RENDERER" , "SDL_Renderer destroyed" ) ;
+        
     }
 }
 
 
 /**
- * # setRenderCommand Overload 
- * 
+ *
  */
 void Renderer::setRenderCommand( SDL_Texture * texture , 
                                  const SDL_Rect srcRect , const SDL_Rect dstRect ,
@@ -79,9 +92,19 @@ void Renderer::setRenderCommand( SDL_Texture * texture ,
 {
 
     if ( !texture )
-     return ;
+    {
+        LOG_ERROR ( LOG::LOG_DEFAULT_TYPE , "RENDERER" , "texture is null while setting RenderCommand with src & dst Rect") ;
+        return ;
+    } 
+
+    
+     LOG_INFO_DMODE( LOG::LOG_DEFAULT_TYPE , "RENDERER" , "setting RendererCommand with both dst & src Rect" ) ;
+     
 
      m_queue.emplace_back( RenderCommand{ texture , srcRect , dstRect , zIndex , angle } ) ;
+     
+
+     LOG_DEBUG( LOG::LOG_DEFAULT_TYPE , "RENDERER" , "RenderCommand has been set with both src & dst Rect" ) ;
 
 }
 
@@ -89,43 +112,63 @@ void Renderer::setRenderCommand( SDL_Texture * texture ,
  * # setRenderCommand Overload 
  * no dstRect
  */
-void Renderer::setRenderCommand( SDL_Texture * texture , 
+void Renderer::setRenderCommandDst( SDL_Texture * texture , 
                                  const SDL_Rect dstRect ,
                                  const int zIndex , const double angle )  
 {
 
     if ( !texture )
-     return ;
+    {
+        LOG_ERROR ( LOG::LOG_DEFAULT_TYPE , "RENDERER" , "texture is null while setting RenderCommand with dst Rect") ;
+        return ;
+    } 
 
+     LOG_WARN_DMODE( LOG::LOG_DEFAULT_TYPE , "RENDERER" , "setting RendererCommand with only dstRect" ) ;
+     
      m_queue.emplace_back( RenderCommand{ texture , {0,0,0,0} , dstRect , zIndex , angle , true } ) ;
-
+     
+     LOG_DEBUG( LOG::LOG_DEFAULT_TYPE , "RENDERER" , "RenderCommand has been set with dst Rect" ) ;
 }
 
 /**
  * # setRenderCommand Overload 
  * no dstRect
  */
-void Renderer::setRenderCommand ( SDL_Texture * texture ,   
+void Renderer::setRenderCommandSrc ( SDL_Texture * texture ,   
                         const SDL_Rect srcRect ,
                         const int zIndex , const double angle )  
 {
 
     if ( !texture )
-     return ;
+    {
+        LOG_ERROR ( LOG::LOG_DEFAULT_TYPE , "RENDERER" , "texture is null while setting RenderCommand with src Rect") ;
+        return ;
+    } 
 
+     LOG_WARN_DMODE( LOG::LOG_DEFAULT_TYPE , "RENDERER" , "setting RendererCommand with only src Rect" ) ;
+     
      m_queue.emplace_back( RenderCommand{ texture , srcRect , {0,0,0,0} , zIndex , angle , false , true } ) ;
+     
+     LOG_DEBUG( LOG::LOG_DEFAULT_TYPE , "RENDERER" , "RenderCommand has been set with src Rect" ) ;
 
 }
 
-
+/**/
 void Renderer::setRenderCommand ( SDL_Texture * texture ,   
                                 const int zIndex , const double angle )  
 {
 
     if ( !texture )
-     return ;
+    {
+        LOG_ERROR ( LOG::LOG_DEFAULT_TYPE , "RENDERER" , "texture is null while setting RenderCommand with no src & dst Rect") ;
+        return ;
+    } 
 
+     LOG_WARN_DMODE( LOG::LOG_DEFAULT_TYPE , "RENDERER" , "setting RendererCommand with no src & dst Rect" ) ;
+     
      m_queue.emplace_back( RenderCommand{ texture , {0,0,0,0} , {0,0,0,0} , zIndex , angle , true , true } ) ;
+     
+     LOG_DEBUG( LOG::LOG_DEFAULT_TYPE , "RENDERER" , "RenderCommand has been set with no src & dst Rect" ) ;
 
 }
 
@@ -141,6 +184,7 @@ void Renderer::RenderQueue()
         return a.texture < b.texture ; 
     });
 
+    LOG_INFO_DMODE( LOG::LOG_DEFAULT_TYPE , "RENDERER" , "sorting RenderCommand based on zIndex finished" ) ;
 
     for (const auto& cmd : m_queue) 
     {
@@ -153,7 +197,7 @@ void Renderer::RenderQueue()
                          cmd.angle , nullptr , SDL_FLIP_NONE );
     
     }
-
+    LOG_INFO_DMODE( LOG::LOG_DEFAULT_TYPE , "RENDERER" , "rendering frames finished" ) ;
 
     m_queue.clear();
 }

@@ -98,7 +98,7 @@ void Animation::setDuration ( const float duration )
 }
 
 /**/
-SDL_Texture * Animation::getTexture() const 
+const SDL_Texture * Animation::getTexture() const 
 {
     return m_texture ;
 }

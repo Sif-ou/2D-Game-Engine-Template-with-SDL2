@@ -4,6 +4,16 @@
 #include "../../Renderer/Renderer.hpp"
 
 
+/**
+ * 
+ * TODO
+ * log output
+ * 
+ */
+
+
+
+
 /* #TODO define rules ( status : ongoing ) */
 /**
  * # RULES 

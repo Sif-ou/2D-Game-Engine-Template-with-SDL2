@@ -4,23 +4,13 @@
 #include "src/lib/input/FileLoader/FileLoader.hpp"
 #include "src/lib/Texture/TextureManager/TextureManager.hpp"
 #include "src/lib/Texture/Animation/Animation.hpp"
-
-#ifdef DEBUG
-    #define R std::cout << "Debug mode active\n" ;
-#else
-    #define R std::cout << "Release mode active\n" ;
-#endif
-
-
+#include "src/lib/Log/Logger.hpp"
 
 
 int getter( ) { return 0 ; }
 
 int main ( int argc , char * argv[] )
 {
-
-
-
 
     std::unique_ptr<Window> window ;
     std::unique_ptr<Graphics::Renderer> renderer ;
@@ -42,8 +32,6 @@ int main ( int argc , char * argv[] )
      SDL_SetWindowResizable ( window->getWindow() , SDL_TRUE ) ;
 
     }
-
-
 
 
 

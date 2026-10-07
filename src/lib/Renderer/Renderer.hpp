@@ -2,6 +2,12 @@
 #include "RenderCommand.hpp"
 
 
+/**
+ * 
+ * TODO
+ * log output
+ * 
+ */
 
 namespace Graphics {
 
@@ -58,7 +64,7 @@ class Renderer
      *TODO documentation on this after TODO on RenderCommand.hpp  
      * no srcRect ( nullptr )
      */                       
-    void setRenderCommand ( SDL_Texture * texture ,   
+    void setRenderCommandDst ( SDL_Texture * texture ,   
                             const SDL_Rect dstRect ,
                             const int zIndex , const double angle )  ;
 
@@ -66,7 +72,7 @@ class Renderer
      * TODO documentation on this after TODO on RenderCommand.hpp  
      * no dstRect ( nullptr )
      */                       
-    void setRenderCommand ( SDL_Texture * texture ,   
+    void setRenderCommandSrc ( SDL_Texture * texture ,   
                             const SDL_Rect srcRect ,
                             const int zIndex , const double angle )  ;
 
